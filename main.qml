@@ -1,5 +1,6 @@
 import QtQuick 2.11
 import QtQuick.Controls 2.4
+import coolingbackend 1.0
 
 ApplicationWindow {
     id: window
@@ -7,12 +8,15 @@ ApplicationWindow {
     width: 640
     height: 480
     color: "#ffffff"
+    BackEnd {
+            id: backend
+    }
+
     property alias dial: dial
     property alias dial1: dial1
     property alias label2: label2
     property alias label3: label3
     title: qsTr("TemperatureController")
-
     Row {
         id: row
         width: window.width
@@ -40,12 +44,12 @@ ApplicationWindow {
                 value: 14
                 anchors.horizontalCenter: parent.horizontalCenter
                 snapMode: "SnapAlways"
-                onValueChanged: label2.text=value
+                onValueChanged:  backend.dTemperature = value
             }
 
             Label {
                 id: label2
-                text: qsTr("Label")
+                text: backend.dTemperature
                 anchors.horizontalCenter: parent.horizontalCenter
             }
         }
@@ -67,17 +71,17 @@ ApplicationWindow {
                 enabled: true
                 wheelEnabled: false
                 stepSize: 1
-                to: 28
-                from: 14
-                value: 14
+                to: 8
+                from: 0
+                value: 0
                 snapMode: "SnapAlways"
                 anchors.horizontalCenter: parent.horizontalCenter
-                onValueChanged: label3.text=value
+                onValueChanged: backend.dFanspeed = value
             }
 
             Label {
                 id: label3
-                text: qsTr("Label")
+                text: backend.dFanspeed
                 anchors.horizontalCenter: parent.horizontalCenter
             }
         }
