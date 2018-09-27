@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QString>
+#include "can.h"
 
 class BackEnd : public QObject
 {
@@ -24,6 +25,7 @@ signals:
 
 private:
     double dTemperature,dFanspeed;
+    can can0;
 };
 
 #endif // BACKEND_H

@@ -4,6 +4,7 @@
 #include <QQuickStyle>
 #include <QCanBus>
 #include "backend.h"
+#include "can.h"
 
 int main(int argc, char *argv[])
 {
@@ -18,15 +19,7 @@ int main(int argc, char *argv[])
     QQmlApplicationEngine engine;
     //Load backend
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
-
-    //CanSetup
-    QString errorString;
-    QCanBusDevice *can0 = QCanBus::instance()->createDevice(
-        QStringLiteral("socketcan"), QStringLiteral("vcan0"), &errorString);
-    if (!can0)
-        qDebug() << errorString;
-    else
-        can0->connectDevice();
+    //Link backend with can
 
     if (engine.rootObjects().isEmpty())
         return -1;

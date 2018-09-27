@@ -1,5 +1,7 @@
 #include "backend.h"
 #include <iostream>
+#include "can.h"
+#include <string>
 
 BackEnd::BackEnd(QObject *parent) :
     QObject(parent)
@@ -17,6 +19,8 @@ void BackEnd::setFanspeed(const double &Fanspeed)
 {
     dFanspeed = Fanspeed;
     emit fanspeedChanged();
+    QByteArray buffer(reinterpret_cast<const char*>(&dFanspeed), sizeof(dFanspeed));
+    can0.cansend(0x10,buffer);
 }
 
 double BackEnd::Temperature()
@@ -28,4 +32,6 @@ void BackEnd::setTemperature(const double &Temperature)
 {
     dTemperature = Temperature;
     emit temperatureChanged();
+    QByteArray buffer(reinterpret_cast<const char*>(&dTemperature), sizeof(dTemperature));
+    can0.cansend(0x11,buffer);
 }
